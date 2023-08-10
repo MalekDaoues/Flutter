@@ -1,3 +1,4 @@
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:e_shop/Screens/Profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +14,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  String? errorMessage = '';
+  String? errorMessage = ''; // Variable pour stocker un message d'erreur éventuel
   final TextEditingController nameController = TextEditingController();
   final TextEditingController prenameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -21,43 +22,43 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController countryController = TextEditingController();
   final AuthController authController = Get.find<AuthController>();
-  CountryCode? selectedCountry;
-  String? selectedCountryName;
+  CountryCode? selectedCountry; // Variable pour stocker le code du pays sélectionné
+  String? selectedCountryName; // Variable pour stocker le nom du pays sélectionné
 
   @override
   void initState() {
     super.initState();
-    countryController.text = selectedCountryName ?? '';
+    countryController.text = selectedCountryName ?? ''; // Initialisation du contrôleur du champ de texte du pays avec le nom du pays sélectionné (s'il existe)
   }
 
+  // Méthode pour créer un utilisateur avec une adresse e-mail et un mot de passe
   Future<void> createUserWithEmailAndPassword(BuildContext context) async {
     try {
+      // Crée un utilisateur avec l'adresse e-mail et le mot de passe fournis
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
 
+      // Met à jour les informations de l'utilisateur dans le contrôleur d'authentification (AuthController)
       authController.setName(nameController.text);
       authController.setPrename(prenameController.text);
       authController.setPhoneNumber(phoneNumberController.text);
       authController.setEmail(emailController.text);
       authController.setCountry(countryController.text);
-      authController.isLoggedIn.value=true;
+      authController.isLoggedIn.value = true;
 
-
+      // Sauvegarde les informations de l'utilisateur dans Firestore et localement
       await authController.saveUserToFirestore();
       authController.saveUserLocally();
 
+      // Navigue vers la page du profil (ProfilePage)
       Get.off(ProfilePage());
     } catch (e) {
-      // Handle error
+      // Gère les erreurs éventuelles
+      // Vous pouvez utiliser la variable errorMessage pour afficher un message d'erreur à l'utilisateur
     }
   }
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -93,9 +94,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: CountryCodePicker(
                         onChanged: (CountryCode? code) {
                           setState(() {
-                            selectedCountry = code;
-                            selectedCountryName = code?.name;
-                            countryController.text = selectedCountryName ?? '';
+                            selectedCountry = code; // Met à jour le code du pays sélectionné
+                            selectedCountryName = code?.name; // Met à jour le nom du pays sélectionné
+                            countryController.text = selectedCountryName ?? ''; // Met à jour le contrôleur du champ de texte du pays avec le nom du pays sélectionné
                           });
                         },
                       ),
@@ -107,7 +108,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         decoration: const InputDecoration(
                           labelText: 'Phone Number',
                         ),
-                        keyboardType: TextInputType.phone,
+                        keyboardType: TextInputType.phone, // Type de clavier du champ de texte pour le numéro de téléphone
                       ),
                     ),
                   ],
@@ -119,7 +120,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   decoration: const InputDecoration(
                     labelText: 'Country',
                   ),
-                  readOnly: true, // Make the text field read-only
+                  readOnly: true, // Rend le champ de texte en lecture seule pour empêcher l'édition directe
                 ),
                 SizedBox(height: 16.0),
                 TextFormField(
@@ -132,21 +133,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 TextFormField(
                   controller: passwordController,
                   decoration: const InputDecoration(
-                    labelText: 'Password',
+                    labelText: 'Password', // Étiquette du champ de texte "Password"
                   ),
-                  obscureText: true,
+                  obscureText: true, // Cache le texte du champ de texte pour afficher les caractères spéciaux sous forme de points
                 ),
                 SizedBox(height: 16.0),
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'Confirm Password',
                   ),
-                  obscureText: true,
+                  obscureText: true, // Cache le texte du champ de texte pour afficher les caractères spéciaux sous forme de points
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    createUserWithEmailAndPassword(context);
+                    createUserWithEmailAndPassword(context); // Appelle la méthode createUserWithEmailAndPassword
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(Color(0xFFFD725A)),

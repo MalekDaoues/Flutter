@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,14 +11,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  // Message d'erreur lors de la connexion
   String? errorMessage = '';
+  // Variable pour indiquer si l'utilisateur est en mode connexion inscription
   bool isLogin = true;
+  // Variable pour indiquer si l'utilisateur est en train de se connecter
   bool isLoggingIn = false;
+  // Contrôleur pour la gestion de l'authentification
   final AuthController authController = Get.find<AuthController>();
+  // Contrôleurs pour les champs de saisie de l'email et du mot de passe
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-
+  // Fonction pour la connexion avec l'email et le mot de passe
   Future<void> signInWithEmailAndPassword() async {
     setState(() {
       errorMessage = '';
@@ -33,31 +37,31 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       if (userCredential.user != null) {
+        // Récupérer l'utilisateur depuis Firestore et sauvegarder l'état de connexion localement
         await authController.getUserFromFirestore();
-        authController.saveLoginStatus(true); // Save login status locally
+        authController.saveLoginStatus(true);
       }
 
-      Get.back();
+      Get.back(); // Retourner à l'écran précédent
     } on FirebaseAuthException catch (e) {
       setState(() {
         isLoggingIn = false;
         if (e.code == 'user-not-found') {
-          // The email does not exist
-          errorMessage = "No account found with this email.";
+          // L'email n'existe pas dans la base de données
+          errorMessage = "Aucun compte trouvé avec cet email.";
         } else if (e.code == 'wrong-password') {
-          // The password is incorrect
-          errorMessage = "Incorrect password.";
+          // Le mot de passe est incorrect
+          errorMessage = "Mot de passe incorrect.";
         }
       });
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Connexion'),
         backgroundColor: const Color(0xFFFD725A),
       ),
       body: KeyboardDismisser(
@@ -67,23 +71,23 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
-                controller: emailController, // Added controller here
+                controller: emailController, // Contrôleur pour le champ de saisie de l'email
                 decoration: const InputDecoration(
                   labelText: 'Email',
                 ),
               ),
               const SizedBox(height: 16.0),
               TextFormField(
-                controller: passwordController, // Added controller here
+                controller: passwordController, // Contrôleur pour le champ de saisie du mot de passe
                 decoration: const InputDecoration(
-                  labelText: 'Password',
+                  labelText: 'Mot de passe',
                 ),
-                obscureText: true,
+                obscureText: true, // Masquer le texte saisi (mot de passe)
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: isLoggingIn ? null : signInWithEmailAndPassword,
-                // Disable button when logging in
+                // Désactiver le bouton lors de la connexion en cours
                 style: ButtonStyle(
                   backgroundColor:
                   MaterialStateProperty.all<Color>(const Color(0xFFFD725A)),
@@ -103,12 +107,12 @@ class _LoginScreenState extends State<LoginScreen> {
               TextButton(
                 onPressed: () {
                   setState(() {
-                    isLogin = !isLogin;
+                    isLogin = !isLogin; // Changer le mode entre connexion et inscription
                   });
-                  Get.to(RegistrationScreen()); // Navigate to the RegistrationScreen
+                  Get.to(RegistrationScreen()); // Naviguer vers l'écran d'inscription
                 },
                 child: const Text(
-                  'Register instead',
+                  'register', // Texte pour passer à l'inscription
                   style: TextStyle(
                     color: Color(0xFFFD725A),
                   ),

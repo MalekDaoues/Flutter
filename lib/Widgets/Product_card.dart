@@ -4,9 +4,10 @@ import '../Screens/product_screen.dart';
 import '../controller/Cart_controller.dart';
 import '../controller/Favorite_controller.dart';
 
+// Classe représentant une carte de produit
 class ProductCard extends StatefulWidget {
-  final String name;
-  final double price;
+  final String name; // Nom du produit
+  final double price; // Prix du produit
 
   ProductCard(this.name, this.price);
 
@@ -15,25 +16,26 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
-  final FavoritesController favoritesController = Get.put(FavoritesController());
-  final CartController cartController = Get.put(CartController());
-      bool isFavorite = false;
+  final FavoritesController favoritesController = Get.put(FavoritesController()); // Contrôleur des favoris via Get.put
+  final CartController cartController = Get.put(CartController()); // Contrôleur du panier via Get.put
+  bool isFavorite = false; // Indique si le produit est en favori
 
-      @override
-      void initState() {
-  super.initState();
-  isFavorite = favoritesController.isProductInFavorites(widget.name, widget.price);
+  @override
+  void initState() {
+    super.initState();
+    isFavorite = favoritesController.isProductInFavorites(widget.name, widget.price); // Vérifie si le produit est en favori
   }
 
+  // Fonction pour basculer l'état de favori
   void toggleFavorite() {
     setState(() {
       isFavorite = !isFavorite;
     });
 
     if (isFavorite) {
-      favoritesController.addToFavorites(widget.name, widget.price);
+      favoritesController.addToFavorites(widget.name, widget.price); // Ajout aux favoris
     } else {
-      favoritesController.removeFromFavorites(widget.name, widget.price);
+      favoritesController.removeFromFavorites(widget.name, widget.price); // Retrait des favoris
     }
   }
 
@@ -53,10 +55,10 @@ class _ProductCardState extends State<ProductCard> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.to(ProductScreen(widget.name, widget.price));
+                        Get.to(ProductScreen(widget.name, widget.price)); // Navigation vers l'écran du produit
                       },
                       child: Image.asset(
-                        "images/${widget.name}.webp",
+                        "images/${widget.name}.webp", // Chemin de l'image du produit
                         fit: BoxFit.cover,
                         height: 200,
                       ),
@@ -75,12 +77,12 @@ class _ProductCardState extends State<ProductCard> {
                                 () => IconButton(
                               icon: Icon(
                                 favoritesController.isProductInFavorites(widget.name, widget.price)
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
+                                    ? Icons.favorite // Icône de favori rempli si le produit est en favori
+                                    : Icons.favorite_border, // Icône de favori non rempli si le produit n'est pas en favori
                                 size: 20,
-                                color: Colors.red,
+                                color: Colors.red, // Couleur de l'icône de favori
                               ),
-                              onPressed: toggleFavorite,
+                              onPressed: toggleFavorite, // Appel de la fonction pour basculer le favori
                             ),
                           ),
                         ),
@@ -100,7 +102,7 @@ class _ProductCardState extends State<ProductCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.name,
+                    widget.name, // Nom du produit
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -109,7 +111,7 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '\$${widget.price}',
+                    '\$${widget.price}', // Prix du produit
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -123,6 +125,5 @@ class _ProductCardState extends State<ProductCard> {
         ],
       ),
     );
-
   }
 }

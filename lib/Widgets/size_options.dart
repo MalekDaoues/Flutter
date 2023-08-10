@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// Classe représentant les options de taille
 class SizeOptions extends StatefulWidget {
-  final List<String> sizes;
+  final List<String> sizes; // Liste des tailles disponibles
 
   const SizeOptions({required this.sizes});
 
@@ -11,14 +12,14 @@ class SizeOptions extends StatefulWidget {
 }
 
 class _SizeOptionsState extends State<SizeOptions> {
-  String? selectedSize;
+  String? selectedSize; // Taille sélectionnée
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         const Text(
-          "Size",
+          "Taille", // Titre des options de taille
           style: TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w500,
@@ -29,7 +30,7 @@ class _SizeOptionsState extends State<SizeOptions> {
           GestureDetector(
             onTap: () {
               setState(() {
-                selectedSize = widget.sizes[i];
+                selectedSize = widget.sizes[i]; // Met à jour la taille sélectionnée
               });
             },
             child: Container(
@@ -37,11 +38,11 @@ class _SizeOptionsState extends State<SizeOptions> {
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: selectedSize == widget.sizes[i]
-                    ? Colors.blue // Change the color for the selected size
-                    : Color(0xFFF7F8FA),
-                borderRadius: BorderRadius.circular(30),
+                    ? Colors.blue // Change la couleur pour la taille sélectionnée
+                    : Color(0xFFF7F8FA), // Couleur par défaut des options de taille
+                borderRadius: BorderRadius.circular(30), // Bordures arrondies du conteneur
               ),
-              child: Text(widget.sizes[i]),
+              child: Text(widget.sizes[i]), // Affiche la taille
             ),
           ),
       ],

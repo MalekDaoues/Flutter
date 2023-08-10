@@ -8,14 +8,14 @@ class ColorOptions extends StatefulWidget {
 }
 
 class _ColorOptionsState extends State<ColorOptions> {
-  Color? selectedColor;
+  Color? selectedColor; // Couleur sélectionnée
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         const Text(
-          "Color:",
+          "Couleur:",
           style: TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w500,
@@ -53,10 +53,12 @@ class _ColorOptionsState extends State<ColorOptions> {
     );
   }
 }
+
+// Classe représentant une option de couleur individuelle
 class ColorOption extends StatelessWidget {
-  final Color color;
-  final bool isSelected;
-  final VoidCallback onSelect;
+  final Color color; // Couleur de l'option
+  final bool isSelected; // Indique si l'option est sélectionnée
+  final VoidCallback onSelect; // Callback appelé lors de la sélection de l'option
 
   const ColorOption({
     required this.color,
@@ -67,13 +69,13 @@ class ColorOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onSelect,
+      onTap: onSelect, // Définir le callback onTap pour déclencher la sélection
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 8),
-        padding: EdgeInsets.all(13),
+        margin: EdgeInsets.symmetric(horizontal: 8), // Marge horizontale
+        padding: EdgeInsets.all(13), // Remplissage interne
         decoration: BoxDecoration(
-          color: isSelected ? color.withOpacity(0.8) : color,
-          borderRadius: BorderRadius.circular(20),
+          color: isSelected ? color.withOpacity(0.8) : color, // Couleur de fond de l'option
+          borderRadius: BorderRadius.circular(20), // Bordures arrondies
         ),
       ),
     );

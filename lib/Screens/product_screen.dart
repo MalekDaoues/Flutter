@@ -1,27 +1,26 @@
-import 'package:e_shop/controller/home_%20controller.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import '../Widgets/bottom_sheet.dart';
 import '../controller/Favorite_controller.dart';
+import '../controller/home_ controller.dart';
 import 'cart_screen.dart';
 
 class ProductScreen extends StatefulWidget {
   final String name;
   final double price;
-  ProductScreen(this.name , this.price);
+
+  ProductScreen(this.name, this.price); // Constructeur de la classe
 
   @override
   _ProductScreenState createState() => _ProductScreenState();
-
 }
 
-class _ProductScreenState extends State<ProductScreen>{
-
-  final FavoritesController favoritesController = Get.find<FavoritesController>();
-   HomeController homeController = Get.find<HomeController>();
-
+class _ProductScreenState extends State<ProductScreen> {
+  final FavoritesController favoritesController = Get.find<FavoritesController>(); // Contrôleur de favoris
+  HomeController homeController = Get.find<HomeController>(); // Contrôleur Home
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +46,7 @@ class _ProductScreenState extends State<ProductScreen>{
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.back();
+                        Get.back(); // Retour arrière lorsque l'icône est cliquée
                       },
                       child: Container(
                         padding: EdgeInsets.all(10),
@@ -111,11 +110,11 @@ class _ProductScreenState extends State<ProductScreen>{
                       ],
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 15), // Espacement vertical de 15 pixels
                   RatingBar.builder(
                     unratedColor: Color.fromARGB(255, 223, 221, 221),
                     itemSize: 28,
-                    initialRating: 3.5,
+                    initialRating: 3.5, // Note initiale
                     minRating: 1,
                     direction: Axis.horizontal,
                     allowHalfRating: true,
@@ -125,22 +124,22 @@ class _ProductScreenState extends State<ProductScreen>{
                       color: Colors.amber,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 20), // Espacement vertical de 20 pixels
                   const Text(
-                    "long Description of the product here",
+                    "long Description of the product here", // à remplacer par la vraie description
                     style: TextStyle(
                       color: Colors.black54,
                       fontSize: 16,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 20), // Espacement vertical de 20 pixels
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       InkWell(
                         onTap: () {
-                          homeController.getCartProduct(widget.name, widget.price);
-                          Get.to(CartScreen(widget.name,widget.price));
+                          homeController.getCartProduct(widget.name, widget.price); // Ajout du produit au panier via le contrôleur Home
+                          Get.to(CartScreen(widget.name, widget.price)); // Navigation vers l'écran du panier en envoyant le nom et le prix du produit
                         },
                         child: Container(
                           padding: EdgeInsets.all(18),
@@ -161,7 +160,7 @@ class _ProductScreenState extends State<ProductScreen>{
                             backgroundColor: Colors.transparent,
                             context: context,
                             builder: (context) {
-                              return CustomBottomSheet(widget.name,widget.price);
+                              return CustomBottomSheet(widget.name, widget.price);
                             },
                           );
                         },
@@ -173,7 +172,7 @@ class _ProductScreenState extends State<ProductScreen>{
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: Text(
-                            "Buy Now",
+                            "Buy Now", // Bouton "Acheter maintenant"
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,

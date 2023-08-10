@@ -6,39 +6,37 @@ import '../Widgets/cart_item.dart';
 import 'Payment_Screen.dart';
 import 'login_screen.dart';
 
-class CartScreen extends StatefulWidget{
+class CartScreen extends StatefulWidget {
   final String name;
   final double price;
 
   CartScreen(this.name, this.price);
+
   @override
   _CartScreenState createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
-  final CartController cartController = Get.put(CartController());
-  final AuthController authController = Get.find<AuthController>();
-  bool selectAll = false;
+  final CartController cartController = Get.put(CartController()); // Instanciation et ajout du contrôleur de panier
+  final AuthController authController = Get.find<AuthController>(); // Récupération du contrôleur d'authentification
+  bool selectAll = false; // Variable pour suivre l'état de la sélection de tous les produits
 
   @override
   void initState() {
     super.initState();
-    selectAll=cartController.selectAll.value;
-
+    selectAll = cartController.selectAll.value; // Récupérer l'état actuel de la sélection de tous les produits
   }
 
+  // Méthode pour basculer la sélection de tous les produits
   void toggleSelectAll(bool? value) {
-
     setState(() {
-      selectAll=!selectAll;
-      cartController.updateProductSelectAll(selectAll);
-
+      selectAll = !selectAll; // Inverser l'état de la sélection de tous les produits
+      cartController.updateProductSelectAll(selectAll);// Mettre à jour la sélection de tous les produits dans le contrôleur de panier
     });
-
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Cart"),
@@ -61,15 +59,16 @@ class _CartScreenState extends State<CartScreen> {
                 child: Container(
                   child: cartController.selectedProducts.isEmpty
                       ? const Center(
-                        child: Text("No items in the cart."),
-
-                      )
+                    child: Text("No items in the cart."),
+                  )
                       : ListView.builder(
                     itemCount: cartController.selectedProducts.length,
                     itemBuilder: (context, index) {
                       return CartItemSamples(
-                        cartController.selectedProducts[index]['name'],
-                        cartController.selectedProducts[index]['price'],
+                        cartController.selectedProducts[index]
+                        ['name'],
+                        cartController.selectedProducts[index]
+                        ['price'],
                       );
                     },
                   ),
@@ -100,13 +99,12 @@ class _CartScreenState extends State<CartScreen> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        Obx(() => Checkbox(
+                         Checkbox(
                           activeColor: const Color(0xFFFd725A),
                           value: cartController.selectAll.value,
                           onChanged:
                               toggleSelectAll,
 
-                        ),
                         ),
                       ],
                     ),
@@ -158,9 +156,9 @@ class _CartScreenState extends State<CartScreen> {
                     InkWell(
                       onTap: () {
                         if (authController.isLoggedIn.value) {
-                          Get.to(PaymentScreen());
+                          Get.to(PaymentScreen()); // Aller à l'écran de paiement si l'utilisateur est connecté
                         } else {
-                          Get.to(LoginScreen());
+                          Get.to(LoginScreen()); // Aller à l'écran de connexion si l'utilisateur n'est pas connecté
                         }
                       },
                       child: Container(
@@ -171,7 +169,7 @@ class _CartScreenState extends State<CartScreen> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Text(
-                          "Command",
+                          "Command", // Bouton de paiement ou connexion
                           style: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,

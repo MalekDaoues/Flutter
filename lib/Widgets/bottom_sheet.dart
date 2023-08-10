@@ -7,47 +7,50 @@ import 'check_button.dart';
 import 'color_options.dart';
 import 'custom_divider.dart';
 
+// Classe représentant le bas de page personnalisé
 class CustomBottomSheet extends StatelessWidget {
-  final String name;
-  final double price;
+  final String name; // Nom du produit
+  final double price; // Prix du produit
+
+  // Constructeur de la classe CustomBottomSheet
   CustomBottomSheet(this.name, this.price);
 
+  // Liste des tailles disponibles pour le produit
   List<String> sizes = ['S', 'M', 'L', 'XL'];
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CartController>(
-        init: CartController(),
-        builder: (controller) {
+    return GetBuilder<CartController>( // Utilisation de GetBuilder pour accéder à l'état du contrôleur de panier
+        init: CartController(), // Initialisation du contrôleur de panier
+        builder: (controller) { // Fonction de génération de widgets basée sur l'état du contrôleur
           return Container(
             padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
             decoration: const BoxDecoration(
-              color: Colors.white,
+              color: Colors.white, // Couleur de fond du conteneur
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
+                topLeft: Radius.circular(30), // Bord supérieur gauche arrondi
+                topRight: Radius.circular(30), // Bord supérieur droit arrondi
               ),
             ),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.min, // Ajustement de la hauteur de la colonne en fonction de son contenu
               children: [
-                SizedBox(height: 10),
-                CustomDivider(),
+                SizedBox(height: 10), // Espace vide de 10 pixels
+                CustomDivider(), // Utilisation du widget de séparation personnalisé
                 SizedBox(height: 20),
-                SizeOptions(sizes: sizes),
+                SizeOptions(sizes: sizes), // Utilisation du widget de sélection de taille avec la liste des tailles
                 SizedBox(height: 10),
-                ColorOptions(),
+                ColorOptions(), // Utilisation du widget de sélection de couleur
                 SizedBox(height: 10),
-                QuantitySelector(),
+                QuantitySelector(), // Utilisation du widget de sélection de quantité
                 SizedBox(height: 30),
-                CheckoutButton(name: name, price: price),
+                CheckoutButton(name: name, price: price), // Utilisation du bouton de vérification avec le nom et le prix du produit
               ],
             ),
           );
         });
   }
 }
-
 
 
 
