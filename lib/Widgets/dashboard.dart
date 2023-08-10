@@ -47,7 +47,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 child: TextFormField(
                   decoration: const InputDecoration(
-                    labelText: "Trouver votre produit",
+                    labelText: "Find your product",
                     border: InputBorder.none,
                     prefixIcon: Icon(
                       Icons.search,

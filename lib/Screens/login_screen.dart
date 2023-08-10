@@ -48,10 +48,10 @@ class _LoginScreenState extends State<LoginScreen> {
         isLoggingIn = false;
         if (e.code == 'user-not-found') {
           // L'email n'existe pas dans la base de données
-          errorMessage = "Aucun compte trouvé avec cet email.";
+          errorMessage = "No account found with this email.";
         } else if (e.code == 'wrong-password') {
           // Le mot de passe est incorrect
-          errorMessage = "Mot de passe incorrect.";
+          errorMessage =  "Incorrect password";
         }
       });
     }
@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Connexion'),
+        title: const Text('Login'),
         backgroundColor: const Color(0xFFFD725A),
       ),
       body: KeyboardDismisser(
@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFormField(
                 controller: passwordController, // Contrôleur pour le champ de saisie du mot de passe
                 decoration: const InputDecoration(
-                  labelText: 'Mot de passe',
+                  labelText: 'Password',
                 ),
                 obscureText: true, // Masquer le texte saisi (mot de passe)
               ),
