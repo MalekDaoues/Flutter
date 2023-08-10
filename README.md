@@ -56,21 +56,21 @@ Dans cette étape, la structure initiale du projet est mise en place. Cela inclu
 
 - Configuration du GitHub pour suivre et gérer les modifications apportées aux fichiers de votre projet au fil du temps : [https://dev.to/learn_flutter_with_smrity/how-to-upload-flutter-project-on-github-bring-remote-repo-locally-a-z-2022-2l3i].
 
-- Installer les dépendances externes nécessaires pour l'application,dans le fichier pubspec.yaml, ajoutez :
-  dependencies:
-  'get: ^4.6.5'
-  'flutter_rating_bar: ^4.0.1'
-  'keyboard_dismisser: ^3.0.0'
-  'path: ^1.8.3'
-  'fluttertoast: ^8.2.2'
-  'firebase_core: ^2.15.0'
-  'firebase_auth: ^4.7.2'
-  'country_code_picker: ^3.0.0'
-  'path_provider: ^2.0.15'
-  'intl_phone_number_input: ^0.7.3+1'
-  'cloud_firestore: ^4.8.2'
-  'get_storage: ^2.1.1'
-  Puis, cliquez pub get
+  - Installer les dépendances externes nécessaires pour l'application,dans le fichier pubspec.yaml, ajoutez :
+    dependencies:
+    'get: ^4.6.5'
+    'flutter_rating_bar: ^4.0.1'
+    'keyboard_dismisser: ^3.0.0'
+    'path: ^1.8.3'
+    'fluttertoast: ^8.2.2'
+    'firebase_core: ^2.15.0'
+    'firebase_auth: ^4.7.2'
+    'country_code_picker: ^3.0.0'
+    'path_provider: ^2.0.15'
+    'intl_phone_number_input: ^0.7.3+1'
+    'cloud_firestore: ^4.8.2'
+    'get_storage: ^2.1.1'
+    Puis, cliquez pub get
 
 ### Étape 2: Prototypage de l'Interface
 La conception de l'interface utilisateur :
